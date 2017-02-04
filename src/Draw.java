@@ -28,6 +28,8 @@ public class Draw {
 	**/
 	void putAPixel(int x, int y, int r, int g, int b)
 	{
+		if (x < 0 || y < 0 || x >= 427 || y >= 240) return;
+		
 		int num = (r << 16) | (g << 8) | (b);
 		screen.setRGB(x, y, num);
 	}

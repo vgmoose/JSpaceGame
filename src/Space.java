@@ -163,7 +163,7 @@ public class Space extends JPanel implements MouseListener, KeyListener
 
 	void checkPause(SpaceGlobals mySpaceGlobals)
 	{
-		if (mySpaceGlobals.buttonEnter)
+		if (mySpaceGlobals.buttonEscape)
 		{
 			// switch to the pause state and mark view as invalid
 			mySpaceGlobals.state = 3;
@@ -260,10 +260,10 @@ public class Space extends JPanel implements MouseListener, KeyListener
 				int newx = (x-woffset)*frame + woffset;
 				int newy = (y-woffset)*frame + woffset;
 				
-				if (orig[newx][newy] == transIndex) continue;
-				
 				if (newx < 0 || newx >= width) continue;
 				if (newy < 0 || newy >= width) continue;
+				
+				if (orig[newx][newy] == transIndex) continue;
 				
 				targ[newx][newy] = orig[x][y];
 			}
@@ -335,13 +335,10 @@ public class Space extends JPanel implements MouseListener, KeyListener
 				int oldx = (int)((ix-woffset)*TrigMath.my_cos(angle) + (iy-woffset)*TrigMath.my_sin(angle) + woffset);
 				int oldy = (int)((ix-woffset)*TrigMath.my_sin(angle) - (iy-woffset)*TrigMath.my_cos(angle) + woffset);
 				
-//				if (oldx < 0) oldx += width;
-//				if (oldy < 0) oldy += width;
-				
-				if (orig[oldx][oldy] == transIndex) continue;
-				
 				if (oldx < 0 || oldx >= width) continue;
 				if (oldy < 0 || oldy >= width) continue;
+				
+				if (orig[oldx][oldy] == transIndex) continue;
 				
 				// TODO: crashes with this below line! When trying to assign to target, but only after doing the above math
 				targ[ix][iy] = orig[oldx][oldy];
@@ -1133,12 +1130,13 @@ public class Space extends JPanel implements MouseListener, KeyListener
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public synchronized void keyPressed(KeyEvent e) {
 		boolean state = true;
 		
 		switch (e.getKeyCode())
 		{
 		case KeyEvent.VK_ENTER:
+		case KeyEvent.VK_A:
 			mySpaceGlobals.buttonA = state;
 			mySpaceGlobals.buttonEnter = state;
 			break;

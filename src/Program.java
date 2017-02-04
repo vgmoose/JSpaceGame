@@ -120,11 +120,11 @@ public class Program {
 				// check for pausing
 				frame.checkPause(mySpaceGlobals);
 			}
-			// //To exit the game
-			 if (mySpaceGlobals.buttonEscape)
-			 {
-				 break;
-			 }
+//			// //To exit the game
+//			 if (mySpaceGlobals.buttonEscape)
+//			 {
+//				 break;
+//			 }
 			 
 //				System.out.println(mySpaceGlobals.buttonDown);
 
