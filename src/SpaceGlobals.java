@@ -38,13 +38,14 @@ int restart;
 
 	//Game engine globals
 	int button;
-	boolean buttonUp;
-	boolean buttonDown;
-	boolean buttonLeft;
-	boolean buttonRight;
-	boolean buttonEnter;
-	boolean buttonA;
-	boolean buttonB;
+	boolean buttonUp = false;
+	boolean buttonDown = false;
+	boolean buttonLeft = false;
+	boolean buttonRight = false;
+	boolean buttonEnter = false;
+	boolean buttonA = false;
+	boolean buttonB = false;
+	boolean buttonEscape = false;
 	
 	Vec2D lstick = new Vec2D();
 	Vec2D rstick = new Vec2D();

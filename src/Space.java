@@ -1,18 +1,21 @@
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.Date;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class Space extends JFrame
+public class Space extends JPanel implements MouseListener, KeyListener
 {
 	private Space() 
 	{ 
 		draw = new Draw(this);
+		this.addKeyListener(this);
 	}
 	
 	public Draw draw;
+	public SpaceGlobals mySpaceGlobals;
 	
 	static private Space space = new Space();
 	
@@ -1113,14 +1116,116 @@ public class Space extends JFrame
 	}
 	
 	@Override
-	public void paint(Graphics g)
+	public void paintComponent(Graphics g)
 	{
-		super.paintComponents(g);
+		super.paintComponent(g);
 		
 		long time = System.currentTimeMillis();
 
-		g.drawImage(draw.screen, 0, 0, getWidth(), getHeight(), null);
+		g.drawImage(draw.screen, 0, 0, null);
 		
 		System.out.println("Took " + (System.currentTimeMillis()-time) + "ms");
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		boolean state = true;
+		
+		switch (e.getKeyCode())
+		{
+		case KeyEvent.VK_ENTER:
+			mySpaceGlobals.buttonA = state;
+			mySpaceGlobals.buttonEnter = state;
+			break;
+		case KeyEvent.VK_LEFT:
+			break;
+		case KeyEvent.VK_RIGHT:
+			break;
+		case KeyEvent.VK_UP:
+			mySpaceGlobals.buttonUp = state;
+			break;
+		case KeyEvent.VK_DOWN:
+			mySpaceGlobals.buttonDown = state;
+			break;
+		case KeyEvent.VK_BACK_SPACE:
+			mySpaceGlobals.buttonB = state;
+			break;
+		case KeyEvent.VK_ESCAPE:
+			mySpaceGlobals.buttonEscape = state;
+
+			break;
+			
+		default:
+			break;
+		}		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		boolean state = false;
+		
+		switch (e.getKeyCode())
+		{
+		case KeyEvent.VK_ENTER:
+			mySpaceGlobals.buttonA = state;
+			mySpaceGlobals.buttonEnter = state;
+			break;
+		case KeyEvent.VK_LEFT:
+			mySpaceGlobals.buttonLeft = state;
+			break;
+		case KeyEvent.VK_RIGHT:
+			mySpaceGlobals.buttonRight = state;
+			break;
+		case KeyEvent.VK_UP:
+			mySpaceGlobals.buttonUp = state;
+			break;
+		case KeyEvent.VK_DOWN:
+			mySpaceGlobals.buttonDown = state;
+			break;
+		case KeyEvent.VK_BACK_SPACE:
+			mySpaceGlobals.buttonB = state;
+			break;
+		case KeyEvent.VK_ESCAPE:
+			mySpaceGlobals.buttonEscape = state;
+			break;
+			
+		default:
+			break;
+		}		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,4 +1,7 @@
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Draw {
@@ -31,8 +34,14 @@ public class Draw {
 
 	void drawString(int x, int y, String string)
 	{
-		// TODO: draw stings
-//		OSScreenPutFontEx(1, x, y, string);
+		x += 2;
+		Graphics2D g2d = screen.createGraphics();
+        g2d.drawImage(screen, 0, 0, null);
+        g2d.setPaint(Color.white);
+        g2d.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        FontMetrics fm = g2d.getFontMetrics();
+        g2d.drawString(string, (int)(6.25*x), fm.getHeight()*y);
+        g2d.dispose();
 	}
 
 	void drawStringTv(int x, int y, String string)

@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Date;
 
-import javax.swing.JPanel;
+import javax.swing.JFrame;
 
 public class Program {
 
@@ -12,15 +12,18 @@ public class Program {
 
 	public static void main(String[] args) {
 		Space frame = Space.getSpace();
-		JPanel panel = new JPanel();
-		panel.setPreferredSize(new Dimension(854, 480));
-		panel.setBackground(Color.BLACK);
-		frame.add(panel);
-		frame.pack();
-		frame.show();
+		JFrame panel = new JFrame();
+		frame.setPreferredSize(new Dimension(427, 240));
+		frame.setBackground(Color.BLACK);
+		panel.add(frame);
+		panel.pack();
+		panel.addKeyListener(frame);
+		panel.show();
 
 		/**************************** > Globals < ****************************/
 		SpaceGlobals mySpaceGlobals = new SpaceGlobals();
+		frame.mySpaceGlobals = mySpaceGlobals;
+		
 		// Flag for restarting the entire game.
 		mySpaceGlobals.restart = 1;
 
@@ -68,20 +71,6 @@ public class Program {
 		boolean exitApplication = false;
 
 		while (!exitApplication) {
-			// VPADRead(0, &vpad_data, 1, &error);
-			// TODO: get input
-
-			// Get the status of the gamepad
-			// mySpaceGlobals.button = vpad_data.btns_h;
-			//
-			// mySpaceGlobals.rstick = vpad_data.rstick;
-			// mySpaceGlobals.lstick = vpad_data.lstick;
-			//
-			// mySpaceGlobals.touched = vpad_data.tpdata.touched;
-			if (mySpaceGlobals.touched == 1) {
-				// mySpaceGlobals.touchX = ((vpad_data.tpdata.x / 9) - 11);
-				// mySpaceGlobals.touchY = ((3930 - vpad_data.tpdata.y) / 16);
-			}
 
 			if (mySpaceGlobals.restart == 1) {
 				frame.reset(mySpaceGlobals);
@@ -132,10 +121,13 @@ public class Program {
 				frame.checkPause(mySpaceGlobals);
 			}
 			// //To exit the game
-			// if (mySpaceGlobals.button&VPAD_BUTTON_HOME)
-			// {
-			// break;
-			// }
+			 if (mySpaceGlobals.buttonEscape)
+			 {
+				 break;
+			 }
+			 
+//				System.out.println(mySpaceGlobals.buttonDown);
+
 
 		}
 
