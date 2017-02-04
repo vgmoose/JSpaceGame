@@ -1,10 +1,20 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 public class Program {
+	
+	static int WIDTH = 427;
+	static int HEIGHT = 240;
 
 	enum Button {
 		VPAD_BUTTON_LEFT, VPAD_BUTTON_RIGHT, VPAD_BUTTON_UP, VPAD_BUTTON_DOWN
@@ -13,11 +23,12 @@ public class Program {
 	public static void main(String[] args) {
 		Space frame = Space.getSpace();
 		JFrame panel = new JFrame();
-		frame.setPreferredSize(new Dimension(427, 240));
+		frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		frame.setBackground(Color.BLACK);
 		panel.add(frame);
 		panel.pack();
 		panel.addKeyListener(frame);
+		panel.addMouseListener(frame);
 		panel.show();
 
 		/**************************** > Globals < ****************************/
@@ -44,6 +55,37 @@ public class Program {
 		// set the starting time
 		int coreinit_handle;
 		mySpaceGlobals.seed = new long[] { (long) (new Date()).getTime() };
+		
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+			      try {
+			    	  Thread.sleep(1000);
+			          // Open an audio input stream.
+			          URL url = Program.class.getClassLoader().getResource("spacegame.wav");
+			          AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+			          // Get a sound clip resource.
+			          Clip clip = AudioSystem.getClip();
+			          // Open audio clip and load samples from the audio input stream.
+			          clip.open(audioIn);
+			          clip.loop(Clip.LOOP_CONTINUOUSLY);
+			          clip.start();
+			       } catch (UnsupportedAudioFileException e) {
+			          e.printStackTrace();
+			       } catch (IOException e) {
+			          e.printStackTrace();
+			       } catch (LineUnavailableException e) {
+			          e.printStackTrace();
+			       } catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		t.start();
+
 
 		/****************************
 		 * > VPAD Loop <
@@ -72,6 +114,13 @@ public class Program {
 
 		while (!exitApplication) {
 
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			if (mySpaceGlobals.restart == 1) {
 				frame.reset(mySpaceGlobals);
 				mySpaceGlobals.restart = 0;

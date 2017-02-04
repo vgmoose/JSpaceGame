@@ -3,15 +3,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
-public class Space extends JPanel implements MouseListener, KeyListener
+public class Space extends JPanel implements MouseListener, KeyListener, MouseMotionListener
 {
 	private Space() 
 	{ 
 		draw = new Draw(this);
 		this.addKeyListener(this);
+		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
+		this.setDoubleBuffered(true);
 	}
 	
 	public Draw draw;
@@ -506,18 +510,18 @@ public class Space extends JPanel implements MouseListener, KeyListener
 			score = "Score: N/A";
 		else
 			score = "Score: " + mySpaceGlobals.score;
-		draw.drawString(0, -1, score);
+		draw.drawString(0, 1, score);
 		
 		String level = "Lv " + mySpaceGlobals.level+1;
-		draw.drawString(30, -1, level);
+		draw.drawString(30, 1, level);
 
 		String lives = "Lives: " + mySpaceGlobals.lives;
-		draw.drawString(55, -1, lives);
+		draw.drawString(55, 1, lives);
 		
 		if (mySpaceGlobals.displayHowToPlay == 1)
 		{
 			String nag = "Touch and hold on the screen to rapid fire!";
-			draw.drawString(20, 17, nag);
+			draw.drawString(17, 15, nag);
 		}
 				
 	}
@@ -618,8 +622,8 @@ public class Space extends JPanel implements MouseListener, KeyListener
 			draw.drawString(25, 12, play);
 			draw.drawString(26, 13, password);
 			
-			draw.drawString(45, 17, musiccredits);
-			draw.drawString(-2, 17, license);
+			draw.drawString(42, 15, musiccredits);
+			draw.drawString(0, 15, license);
 			
 			drawMenuCursor(mySpaceGlobals);
 			
@@ -1136,28 +1140,33 @@ public class Space extends JPanel implements MouseListener, KeyListener
 		switch (e.getKeyCode())
 		{
 		case KeyEvent.VK_ENTER:
-		case KeyEvent.VK_A:
+		case KeyEvent.VK_Z:
+		case KeyEvent.VK_SPACE:
 			mySpaceGlobals.buttonA = state;
 			mySpaceGlobals.buttonEnter = state;
 			break;
 		case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_A:
 			mySpaceGlobals.buttonLeft = state;
 			break;
 		case KeyEvent.VK_RIGHT:
+		case KeyEvent.VK_D:
 			mySpaceGlobals.buttonRight = state;
 			break;
 		case KeyEvent.VK_UP:
+		case KeyEvent.VK_W:
 			mySpaceGlobals.buttonUp = state;
 			break;
 		case KeyEvent.VK_DOWN:
+		case KeyEvent.VK_S:
 			mySpaceGlobals.buttonDown = state;
 			break;
 		case KeyEvent.VK_BACK_SPACE:
+		case KeyEvent.VK_X:
 			mySpaceGlobals.buttonB = state;
 			break;
 		case KeyEvent.VK_ESCAPE:
 			mySpaceGlobals.buttonEscape = state;
-
 			break;
 			
 		default:
@@ -1172,22 +1181,29 @@ public class Space extends JPanel implements MouseListener, KeyListener
 		switch (e.getKeyCode())
 		{
 		case KeyEvent.VK_ENTER:
+		case KeyEvent.VK_Z:
+		case KeyEvent.VK_SPACE:
 			mySpaceGlobals.buttonA = state;
 			mySpaceGlobals.buttonEnter = state;
 			break;
 		case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_A:
 			mySpaceGlobals.buttonLeft = state;
 			break;
 		case KeyEvent.VK_RIGHT:
+		case KeyEvent.VK_D:
 			mySpaceGlobals.buttonRight = state;
 			break;
 		case KeyEvent.VK_UP:
+		case KeyEvent.VK_W:
 			mySpaceGlobals.buttonUp = state;
 			break;
 		case KeyEvent.VK_DOWN:
+		case KeyEvent.VK_S:
 			mySpaceGlobals.buttonDown = state;
 			break;
 		case KeyEvent.VK_BACK_SPACE:
+		case KeyEvent.VK_X:
 			mySpaceGlobals.buttonB = state;
 			break;
 		case KeyEvent.VK_ESCAPE:
@@ -1201,19 +1217,18 @@ public class Space extends JPanel implements MouseListener, KeyListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		mySpaceGlobals.touched = 1;
+		mySpaceGlobals.touchX = e.getX();
+		mySpaceGlobals.touchY = e.getY();		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		mySpaceGlobals.touched = 0;
 		
 	}
 
@@ -1225,6 +1240,18 @@ public class Space extends JPanel implements MouseListener, KeyListener
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		mySpaceGlobals.touchX = e.getX();
+		mySpaceGlobals.touchY = e.getY();			
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
