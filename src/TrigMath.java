@@ -90,9 +90,9 @@ public class TrigMath
 
 	// This is from here: http://stackoverflow.com/a/1026370/1871287
 	// it is initially seeded with the time
-	static float prand (int[] seed)
+	static float prand (long[] seed)
 	{
-	  int next = seed[0];
+	  long next = seed[0];
 	  int result;
 	  next *= 1103515245;
 	  next += 12345;
@@ -110,6 +110,6 @@ public class TrigMath
 
 	  seed[0] = next;
 
-	  return result / 2147483647.0f;
+	  return Math.abs(result / 2147483647.0f);
 	}
 }

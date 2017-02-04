@@ -11,19 +11,9 @@ public class Draw {
 		this.space = space;
 	}
 
-	static void flipBuffers()
+	void flipBuffers()
 	{
-//		//Grab the buffer size for each screen (TV and gamepad)
-//		int buf0_size = OSScreenGetBufferSizeEx(0);
-//		int buf1_size = OSScreenGetBufferSizeEx(1);
-//		
-//		//Flush the cache
-//		DCFlushRange((void *)0xF4000000 + buf0_size, buf1_size);
-//		DCFlushRange((void *)0xF4000000, buf0_size);
-//		
-//		//Flip the buffer
-//		OSScreenFlipBuffersEx(0);
-//		OSScreenFlipBuffersEx(1);
+		space.repaint();
 	}
 
 	/**
@@ -55,9 +45,9 @@ public class Draw {
 
 	void fillScreen(int r,int g,int b,int a)
 	{		
-		//TODO: fill screen
-//		OSScreenClearBufferEx(0, num);
-//		OSScreenClearBufferEx(1, num);
+		for (int x=0; x<854; x++)
+			for (int y=0; y<480; y++)
+				screen[x][y] = new Color(r, g, b);
 	}
 
 	// draw black rect all at once
@@ -109,12 +99,10 @@ public class Draw {
 				int y = oy + ry;
 				
 				// do actual pixel drawing logic
-				System.out.println("Printing "+x+", "+y);
 				putAPixel(x, y, r, g, b);
 			}
 		}
 		
-		space.repaint();
 	}
 
 	/**
@@ -129,12 +117,10 @@ public class Draw {
 		{
 			int x = pixels[rx].x;
 			int y = pixels[rx].y;
-			System.out.println("Printing "+x+", "+y);
 
 			putAPixel(x, y, pixels[rx].r, pixels[rx].g, pixels[rx].b);
 		}
 		
-		space.repaint();
 	}
 
 	void drawPixel(int x, int y, int r, int g, int b)

@@ -33,14 +33,14 @@ public class Program {
 		mySpaceGlobals.menuChoice = 0; // 0 is play, 1 is password
 
 		// setup the password list
-		int[] pwSeed = { 27 }; // int array of size 1 is acts as an int pointer
+		long[] pwSeed = { 27 }; // int array of size 1 is acts as an int pointer
 		int x;
 		for (x = 0; x < 100; x++)
 			mySpaceGlobals.passwordList[x] = (int) (TrigMath.prand(pwSeed) * 100000);
 
 		// set the starting time
 		int coreinit_handle;
-		mySpaceGlobals.seed = new int[] { (int) (new Date()).getTime() };
+		mySpaceGlobals.seed = new long[] { (long) (new Date()).getTime() };
 
 		/****************************
 		 * > VPAD Loop <

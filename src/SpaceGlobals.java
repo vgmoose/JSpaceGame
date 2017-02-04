@@ -15,7 +15,7 @@ int restart;
 	//Gameplay boundry
 	int frame;
 	
-	int[] seed;
+	long[] seed;
 	
 	short[][] rotated_ship = new short[36][36];
 	short[][] orig_ship = new short[36][36];

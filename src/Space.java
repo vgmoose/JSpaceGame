@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Date;
 
 import javax.swing.JFrame;
 
@@ -539,7 +540,7 @@ public class Space extends JFrame
 		if (mySpaceGlobals.lives == 1 && mySpaceGlobals.playerExplodeFrame > 1)
 			return;
 		
-//		draw.drawPixels(mySpaceGlobals.stars);
+		draw.drawPixels(mySpaceGlobals.stars);
 	}
 
 	//Reset the game
@@ -1111,8 +1112,6 @@ public class Space extends JFrame
 		mySpaceGlobals.invalid = 1;
 	}
 	
-	
-
 	@Override
 	public void paint(Graphics z)
 	{
@@ -1122,6 +1121,8 @@ public class Space extends JFrame
 		g.setPaint(Color.BLACK);
 		g.drawLine(0, 0, 200, 200);
 		
+		long time = System.currentTimeMillis();
+				
 		for (int x=0; x<draw.screen.length; x++)
 			for (int y=0; y<draw.screen[0].length; y++)
 			{
@@ -1131,5 +1132,7 @@ public class Space extends JFrame
 				g.setPaint(draw.screen[x][y]);
 				g.drawLine(x, y, x, y);
 			}
+		
+		System.out.println("Took " + (System.currentTimeMillis()-time) + "ms");
 	}
 }
