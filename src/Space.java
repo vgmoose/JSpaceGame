@@ -1117,11 +1117,11 @@ public class Space extends JPanel implements MouseListener, KeyListener
 	{
 		super.paintComponent(g);
 		
-		long time = System.currentTimeMillis();
+//		long time = System.currentTimeMillis();
 
 		g.drawImage(draw.screen, 0, 0, null);
 		
-		System.out.println("Took " + (System.currentTimeMillis()-time) + "ms");
+//		System.out.println("Took " + (System.currentTimeMillis()-time) + "ms");
 	}
 
 	@Override
@@ -1141,8 +1141,10 @@ public class Space extends JPanel implements MouseListener, KeyListener
 			mySpaceGlobals.buttonEnter = state;
 			break;
 		case KeyEvent.VK_LEFT:
+			mySpaceGlobals.buttonLeft = state;
 			break;
 		case KeyEvent.VK_RIGHT:
+			mySpaceGlobals.buttonRight = state;
 			break;
 		case KeyEvent.VK_UP:
 			mySpaceGlobals.buttonUp = state;
