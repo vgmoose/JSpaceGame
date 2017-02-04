@@ -1,9 +1,10 @@
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 public class Draw {
 	
 	// this matrix emulates the pixel grid on the wii u gamepad
-	Color[][] screen = new Color[854][480];
+	BufferedImage screen = new BufferedImage(427, 240, BufferedImage.TYPE_INT_RGB);
 	Space space;
 	
 	public Draw(Space space)
@@ -24,13 +25,8 @@ public class Draw {
 	**/
 	void putAPixel(int x, int y, int r, int g, int b)
 	{
-		x *= 2;
-		y *= 2;
-
-		int ay, az;
-		for (ay=0; ay<2; ay++)
-			for (az=0; az<2; az++)
-				screen[x+ay][y+az] = new Color(r, g, b);
+		int num = (r << 16) | (g << 8) | (b);
+		screen.setRGB(x, y, num);
 	}
 
 	void drawString(int x, int y, String string)
@@ -45,9 +41,9 @@ public class Draw {
 
 	void fillScreen(int r,int g,int b,int a)
 	{		
-		for (int x=0; x<854; x++)
-			for (int y=0; y<480; y++)
-				screen[x][y] = new Color(r, g, b);
+		for (int x=0; x<427; x++)
+			for (int y=0; y<240; y++)
+				putAPixel(x, y, r, g, b);
 	}
 
 	// draw black rect all at once

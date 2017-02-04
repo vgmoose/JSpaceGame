@@ -1113,25 +1113,13 @@ public class Space extends JFrame
 	}
 	
 	@Override
-	public void paint(Graphics z)
+	public void paint(Graphics g)
 	{
-		super.paintComponents(z);
-		Graphics2D g = (Graphics2D)z;
-		
-		g.setPaint(Color.BLACK);
-		g.drawLine(0, 0, 200, 200);
+		super.paintComponents(g);
 		
 		long time = System.currentTimeMillis();
-				
-		for (int x=0; x<draw.screen.length; x++)
-			for (int y=0; y<draw.screen[0].length; y++)
-			{
-				if (draw.screen[x][y] == null) continue;
-				
-				// i guess there's no draw point so here's drawing a 1x1 line
-				g.setPaint(draw.screen[x][y]);
-				g.drawLine(x, y, x, y);
-			}
+
+		g.drawImage(draw.screen, 0, 0, getWidth(), getHeight(), null);
 		
 		System.out.println("Took " + (System.currentTimeMillis()-time) + "ms");
 	}
