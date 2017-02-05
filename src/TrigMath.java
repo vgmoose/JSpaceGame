@@ -45,12 +45,9 @@ public class TrigMath
 	static float my_fabs(float value)
 	{
 		if (value < 0)
-		{
 			return -value;
-		} else
-		{
+		else
 			return value;
-		}
 	}
 
 	// Long story short, this function calls atan(y/x), but with some special
