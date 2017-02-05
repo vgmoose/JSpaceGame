@@ -11,8 +11,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
-public class Program {
-	
+public class Program
+{
 	static int WIDTH = 427;
 	static int HEIGHT = 240;
 
@@ -20,7 +20,8 @@ public class Program {
 		VPAD_BUTTON_LEFT, VPAD_BUTTON_RIGHT, VPAD_BUTTON_UP, VPAD_BUTTON_DOWN
 	};
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		Space frame = Space.getSpace();
 		JFrame panel = new JFrame();
 		frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -34,7 +35,7 @@ public class Program {
 		/**************************** > Globals < ****************************/
 		SpaceGlobals mySpaceGlobals = new SpaceGlobals();
 		frame.mySpaceGlobals = mySpaceGlobals;
-		
+
 		// Flag for restarting the entire game.
 		mySpaceGlobals.restart = 1;
 
@@ -55,37 +56,43 @@ public class Program {
 		// set the starting time
 		int coreinit_handle;
 		mySpaceGlobals.seed = new long[] { (long) (new Date()).getTime() };
-		
+
 		Thread t = new Thread(new Runnable() {
 
 			@Override
-			public void run() {
-			      try {
-			    	  Thread.sleep(1000);
-			          // Open an audio input stream.
-			          URL url = Program.class.getClassLoader().getResource("spacegame.wav");
-			          AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
-			          // Get a sound clip resource.
-			          Clip clip = AudioSystem.getClip();
-			          // Open audio clip and load samples from the audio input stream.
-			          clip.open(audioIn);
-			          clip.loop(Clip.LOOP_CONTINUOUSLY);
-			          clip.start();
-			       } catch (UnsupportedAudioFileException e) {
-			          e.printStackTrace();
-			       } catch (IOException e) {
-			          e.printStackTrace();
-			       } catch (LineUnavailableException e) {
-			          e.printStackTrace();
-			       } catch (InterruptedException e) {
+			public void run()
+			{
+				try
+				{
+					Thread.sleep(1000);
+					// Open an audio input stream.
+					URL url = Program.class.getClassLoader().getResource("spacegame.wav");
+					AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+					// Get a sound clip resource.
+					Clip clip = AudioSystem.getClip();
+					// Open audio clip and load samples from the audio input
+					// stream.
+					clip.open(audioIn);
+					clip.loop(Clip.LOOP_CONTINUOUSLY);
+					clip.start();
+				} catch (UnsupportedAudioFileException e)
+				{
+					e.printStackTrace();
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				} catch (LineUnavailableException e)
+				{
+					e.printStackTrace();
+				} catch (InterruptedException e)
+				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			
+
 		});
 		t.start();
-
 
 		/****************************
 		 * > VPAD Loop <
@@ -112,16 +119,20 @@ public class Program {
 
 		boolean exitApplication = false;
 
-		while (!exitApplication) {
+		while (!exitApplication)
+		{
 
-			try {
+			try
+			{
 				Thread.sleep(10);
-			} catch (InterruptedException e) {
+			} catch (InterruptedException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			if (mySpaceGlobals.restart == 1) {
+
+			if (mySpaceGlobals.restart == 1)
+			{
 				frame.reset(mySpaceGlobals);
 				mySpaceGlobals.restart = 0;
 			}
@@ -169,14 +180,13 @@ public class Program {
 				// check for pausing
 				frame.checkPause(mySpaceGlobals);
 			}
-//			// //To exit the game
-//			 if (mySpaceGlobals.buttonEscape)
-//			 {
-//				 break;
-//			 }
-			 
-//				System.out.println(mySpaceGlobals.buttonDown);
+			// // //To exit the game
+			// if (mySpaceGlobals.buttonEscape)
+			// {
+			// break;
+			// }
 
+			// System.out.println(mySpaceGlobals.buttonDown);
 
 		}
 

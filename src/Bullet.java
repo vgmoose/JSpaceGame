@@ -1,5 +1,6 @@
 
-public class Bullet {
+public class Bullet
+{
 	int x;
 	int y;
 	float m_x;

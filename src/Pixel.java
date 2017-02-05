@@ -1,5 +1,5 @@
-
-public class Pixel {
+public class Pixel
+{
 	int x;
 	int y;
 	int r;

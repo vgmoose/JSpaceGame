@@ -1,4 +1,5 @@
 
-public class Vec2D {
+public class Vec2D
+{
 	float x, y;
 }
